@@ -1,0 +1,27 @@
+ services:
+   db:
+     image: postgres:latest
+     environment:
+       POSTGRES_DB: acme_insurance
+       POSTGRES_USER: ontop
+       POSTGRES_PASSWORD: ontoppassword
+     volumes:
+       - ./pgdata:/var/lib/postgresql/data
+       - ./DDL:/docker-entrypoint-initdb.d
+       - ./data:/docker-entrypoint-initdb.d
+       - ./load_data.sh:/docker-entrypoint-initdb.d/load_data.sh
+     ports:
+       - "5432:5432"
+ 
+#     image: ontop/ontop-endpoint:latest
+#     depends_on:
+#       - db
+#     environment:
+#       ONTOP_ONTOLOGY_FILE: /opt/ontop/input/insurance.ttl
+#       ONTOP_MAPPING_FILE: /opt/ontop/input/mapping.obda
+#       ONTOP_PROPERTIES_FILE: /opt/ontop/input/ontop.properties
+#     volumes:
+#       - ./ontology:/opt/ontop/input
+#     ports:
+#       - "8080:8080"
+
